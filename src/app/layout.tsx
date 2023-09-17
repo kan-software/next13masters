@@ -2,6 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { Navbar } from "@/ui/organisms/Navbar";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -12,7 +14,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<Navbar>
+					<Navbar.Item>
+						<Navbar.ActiveLink href="/">Home</Navbar.ActiveLink>
+					</Navbar.Item>
+					<Navbar.Item>
+						<Navbar.ActiveLink href="/products">Products</Navbar.ActiveLink>
+					</Navbar.Item>
+				</Navbar>
+				{children}
+			</body>
 		</html>
 	);
 }
