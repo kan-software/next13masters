@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { type Product } from "@/types/Product";
 import { ProductItemImage } from "@/ui/atoms/ProductItemImage";
 import { ProductItemDescription } from "@/ui/atoms/ProductItemDescription";
@@ -9,10 +10,12 @@ export type ProductItemProps = {
 export function ProductItem({ product }: ProductItemProps) {
 	return (
 		<li>
-			<ProductItemImage {...product.image} />
-			<div className="mt-2">
-				<ProductItemDescription product={product} />
-			</div>
+			<Link href={`/product/${product.id}`}>
+				<ProductItemImage src={product.image} alt={product.title} />
+				<div className="mt-2">
+					<ProductItemDescription product={product} />
+				</div>
+			</Link>
 		</li>
 	);
 }

@@ -10,7 +10,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 	return (
 		<article>
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-				<ProductItemImage src={product.image.src} alt={product.image.alt} />
+				<ProductItemImage src={product.image} alt={product.title} />
 				<div className="px-6">
 					<ProductDetailDescription product={product} />
 				</div>
