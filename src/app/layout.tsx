@@ -20,10 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<Navbar.ActiveLink href="/">Home</Navbar.ActiveLink>
 					</Navbar.Item>
 					<Navbar.Item>
-						<Navbar.ActiveLink href="/products">Products</Navbar.ActiveLink>
+						<Navbar.ActiveLink href="/products">All</Navbar.ActiveLink>
 					</Navbar.Item>
 				</Navbar>
-				{children}
+				<div className="flex flex-grow flex-col">{children}</div>
 			</body>
 		</html>
 	);
