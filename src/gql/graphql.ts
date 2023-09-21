@@ -10724,6 +10724,16 @@ export type ProductGetByIdQueryVariables = Exact<{
 
 export type ProductGetByIdQuery = { product?: { name: string, price: number, description: string, images: Array<{ url: string }> } | null };
 
+export type ProductGetListQueryVariables = Exact<{
+  first?: Scalars['Int']['input'];
+  skip?: Scalars['Int']['input'];
+}>;
+
+
+export type ProductGetListQuery = { products: Array<{ name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
+
+export type ProductListItemFragment = { name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -10748,6 +10758,19 @@ export const ProductDetailFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductDetail"}) as unknown as TypedDocumentString<ProductDetailFragment, unknown>;
+export const ProductListItemFragmentDoc = new TypedDocumentString(`
+    fragment ProductListItem on Product {
+  name
+  price
+  images {
+    url
+  }
+  categories {
+    name
+  }
+  id
+}
+    `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID = "") {
   product(where: {id: $id}) {
@@ -10762,3 +10785,25 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+export const ProductGetListDocument = new TypedDocumentString(`
+    query ProductGetList($first: Int! = 4, $skip: Int! = 0) {
+  products(first: $first, skip: $skip) {
+    ...ProductListItem
+  }
+  productsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  name
+  price
+  images {
+    url
+  }
+  categories {
+    name
+  }
+  id
+}`) as unknown as TypedDocumentString<ProductGetListQuery, ProductGetListQueryVariables>;

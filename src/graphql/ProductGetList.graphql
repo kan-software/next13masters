@@ -1,0 +1,22 @@
+query ProductGetList($first: Int! = 4, $skip: Int! = 0) {
+	products(first: $first, skip: $skip) {
+		...ProductListItem
+	}
+	productsConnection {
+		aggregate {
+			count
+		}
+	}
+}
+
+fragment ProductListItem on Product {
+	name
+	price
+	images {
+		url
+	}
+	categories {
+		name
+	}
+	id
+}
