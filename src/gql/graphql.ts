@@ -10715,10 +10715,14 @@ export type _SystemDateTimeFieldVariation =
   | 'combined'
   | 'localization';
 
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductDetailFragment = { name: string, price: number, description: string, images: Array<{ url: string }> };
+
+export type ProductGetByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+}>;
 
 
-export type GetProductsQuery = { products: Array<{ name: string, description: string }> };
+export type ProductGetByIdQuery = { product?: { name: string, price: number, description: string, images: Array<{ url: string }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10734,12 +10738,27 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-
-export const GetProductsDocument = new TypedDocumentString(`
-    query GetProducts {
-  products {
-    name
-    description
+export const ProductDetailFragmentDoc = new TypedDocumentString(`
+    fragment ProductDetail on Product {
+  name
+  price
+  description
+  images {
+    url
   }
 }
-    `) as unknown as TypedDocumentString<GetProductsQuery, GetProductsQueryVariables>;
+    `, {"fragmentName":"ProductDetail"}) as unknown as TypedDocumentString<ProductDetailFragment, unknown>;
+export const ProductGetByIdDocument = new TypedDocumentString(`
+    query ProductGetById($id: ID = "") {
+  product(where: {id: $id}) {
+    ...ProductDetail
+  }
+}
+    fragment ProductDetail on Product {
+  name
+  price
+  description
+  images {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;

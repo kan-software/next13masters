@@ -1,0 +1,14 @@
+fragment ProductDetail on Product {
+	name
+	price
+	description
+	images {
+		url
+	}
+}
+
+query ProductGetById($id: ID = "") {
+	product(where: { id: $id }) {
+		...ProductDetail
+	}
+}

@@ -1,16 +1,18 @@
 import { ProductItemImage } from "../atoms/ProductItemImage";
 import { ProductDetailDescription } from "../atoms/ProductDetailDescription";
-import { type Product } from "@/types/Product";
+import { type ProductDetailFragment } from "@/gql/graphql";
 
 export type ProductDetailProps = {
-	product: Product;
+	product: ProductDetailFragment;
 };
 
 export function ProductDetail({ product }: ProductDetailProps) {
+	const [image] = product.images;
+
 	return (
 		<article>
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-				<ProductItemImage src={product.image} alt={product.title} />
+				<ProductItemImage src={image.url} alt={product.name} />
 				<div className="px-6">
 					<ProductDetailDescription product={product} />
 				</div>
