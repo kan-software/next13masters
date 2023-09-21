@@ -8,7 +8,7 @@ export const executeGraphql = async <TResult, TVariables>(
 	query: TypedDocumentString<TResult, TVariables>,
 	variables?: TVariables,
 ): Promise<TResult> => {
-	if (!process.env.API_URL || !process.env.API_AUTH_TOKEN) {
+	if (!process.env.API_URL) {
 		throw new Error("Missing API configuration");
 	}
 
@@ -19,7 +19,6 @@ export const executeGraphql = async <TResult, TVariables>(
 			variables,
 		}),
 		headers: {
-			Authorization: `Bearer ${process.env.API_AUTH_TOKEN}`,
 			"Content-Type": "application/json",
 		},
 	});
