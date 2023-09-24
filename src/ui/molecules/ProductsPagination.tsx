@@ -1,10 +1,12 @@
-import { ActiveLink, type ActiveLinkProps } from "../atoms/ActiveLink";
+import { type Route } from "next";
+import { ActiveLink } from "../atoms/ActiveLink";
 
 export type ProductsPaginationProps = {
+	url: string;
 	numberOfPages: number;
 };
 
-export function ProductsPagination({ numberOfPages }: ProductsPaginationProps) {
+export function ProductsPagination({ url, numberOfPages }: ProductsPaginationProps) {
 	const pageNumbers = [...Array(numberOfPages).keys()].map((index) => index + 1);
 
 	return (
@@ -17,7 +19,7 @@ export function ProductsPagination({ numberOfPages }: ProductsPaginationProps) {
 				{pageNumbers.map((pageNo) => (
 					<li key={pageNo}>
 						<ActiveLink
-							href={`/products/${pageNo.toString()}` as ActiveLinkProps["href"]}
+							href={`${url}/${pageNo.toString()}` as Route}
 							className="inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium"
 							activeClassName="border-blue-500 text-blue-600"
 						>

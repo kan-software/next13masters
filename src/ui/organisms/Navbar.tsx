@@ -1,15 +1,20 @@
 import { type PropsWithChildren } from "react";
 import { ActiveLink, type ActiveLinkProps } from "../atoms/ActiveLink";
+import { SearchInput } from "../atoms/SearchInput";
 
 function NavbarItem({ children }: PropsWithChildren) {
 	return <li className="first:pl-4 last:pr-4 lg:px-0">{children}</li>;
 }
 
-export type NavbarActiveLinkProps = PropsWithChildren<{ href: ActiveLinkProps["href"] }>;
+export type NavbarActiveLinkProps = PropsWithChildren<{
+	href: ActiveLinkProps["href"];
+	exact?: boolean;
+}>;
 
-function NavbarActiveLink({ children, href }: NavbarActiveLinkProps) {
+function NavbarActiveLink({ children, href, exact = false }: NavbarActiveLinkProps) {
 	return (
 		<ActiveLink
+			exact={exact}
 			className="flex h-full w-full min-w-[3rem] items-center justify-center border-b-2 border-transparent px-1 pt-1 text-center text-sm font-medium text-slate-500 hover:border-gray-300 hover:text-slate-700"
 			activeClassName="border-blue-500"
 			href={href}
@@ -28,6 +33,9 @@ export function Navbar({ children }: PropsWithChildren) {
 						<div className="hidden flex-shrink-0 items-center lg:flex" />
 						<ul className="flex h-16 max-w-full space-x-8 whitespace-nowrap lg:px-8">{children}</ul>
 					</nav>
+					<div className="flex h-full flex-1 items-center px-2 lg:ml-6 lg:h-16 lg:justify-end">
+						<SearchInput />
+					</div>
 				</div>
 			</div>
 		</header>

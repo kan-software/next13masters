@@ -1,8 +1,8 @@
-query ProductGetList($first: Int! = 4, $skip: Int! = 0) {
-	products(first: $first, skip: $skip) {
+query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {
+	products(first: $first, skip: $skip, where: $where) {
 		...ProductListItem
 	}
-	productsConnection {
+	productsConnection(where: $where) {
 		aggregate {
 			count
 		}

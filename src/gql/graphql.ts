@@ -10715,6 +10715,13 @@ export type _SystemDateTimeFieldVariation =
   | 'combined'
   | 'localization';
 
+export type CollectionGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionGetListQuery = { collections: Array<{ name: string, slug: string, id: string, image: { url: string } }> };
+
+export type CollectionItemFragment = { name: string, slug: string, id: string, image: { url: string } };
+
 export type ProductDetailFragment = { name: string, price: number, description: string, images: Array<{ url: string }> };
 
 export type ProductGetByIdQueryVariables = Exact<{
@@ -10724,15 +10731,23 @@ export type ProductGetByIdQueryVariables = Exact<{
 
 export type ProductGetByIdQuery = { product?: { name: string, price: number, description: string, images: Array<{ url: string }> } | null };
 
+export type ProductGetBySearchQueryVariables = Exact<{
+  name_contains: Scalars['String']['input'];
+}>;
+
+
+export type ProductGetBySearchQuery = { products: Array<{ name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }> };
+
+export type ProductListItemFragment = { name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
+
 export type ProductGetListQueryVariables = Exact<{
   first?: Scalars['Int']['input'];
   skip?: Scalars['Int']['input'];
+  where?: InputMaybe<ProductWhereInput>;
 }>;
 
 
 export type ProductGetListQuery = { products: Array<{ name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
-
-export type ProductListItemFragment = { name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10748,6 +10763,16 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const CollectionItemFragmentDoc = new TypedDocumentString(`
+    fragment CollectionItem on Collection {
+  name
+  slug
+  id
+  image {
+    url
+  }
+}
+    `, {"fragmentName":"CollectionItem"}) as unknown as TypedDocumentString<CollectionItemFragment, unknown>;
 export const ProductDetailFragmentDoc = new TypedDocumentString(`
     fragment ProductDetail on Product {
   name
@@ -10771,6 +10796,20 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   id
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CollectionGetListDocument = new TypedDocumentString(`
+    query CollectionGetList {
+  collections {
+    ...CollectionItem
+  }
+}
+    fragment CollectionItem on Collection {
+  name
+  slug
+  id
+  image {
+    url
+  }
+}`) as unknown as TypedDocumentString<CollectionGetListQuery, CollectionGetListQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID = "") {
   product(where: {id: $id}) {
@@ -10785,12 +10824,29 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
-export const ProductGetListDocument = new TypedDocumentString(`
-    query ProductGetList($first: Int! = 4, $skip: Int! = 0) {
-  products(first: $first, skip: $skip) {
+export const ProductGetBySearchDocument = new TypedDocumentString(`
+    query ProductGetBySearch($name_contains: String!) {
+  products(where: {name_contains: $name_contains}) {
     ...ProductListItem
   }
-  productsConnection {
+}
+    fragment ProductListItem on Product {
+  name
+  price
+  images {
+    url
+  }
+  categories {
+    name
+  }
+  id
+}`) as unknown as TypedDocumentString<ProductGetBySearchQuery, ProductGetBySearchQueryVariables>;
+export const ProductGetListDocument = new TypedDocumentString(`
+    query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {
+  products(first: $first, skip: $skip, where: $where) {
+    ...ProductListItem
+  }
+  productsConnection(where: $where) {
     aggregate {
       count
     }
