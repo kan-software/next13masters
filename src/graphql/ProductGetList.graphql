@@ -8,15 +8,3 @@ query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInpu
 		}
 	}
 }
-
-fragment ProductListItem on Product {
-	name
-	price
-	images {
-		url
-	}
-	categories {
-		name
-	}
-	id
-}

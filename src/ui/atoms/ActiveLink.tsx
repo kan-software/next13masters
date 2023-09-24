@@ -9,5 +9,11 @@ export function ActiveLink({ activeClassName, exact = true, ...props }: ActiveLi
 	const href = typeof props.href === "string" ? props.href : props.href.pathname;
 	const isActive = href && (exact ? pathname === href : pathname.startsWith(href));
 
-	return <Link {...props} className={twMerge(props.className, isActive && activeClassName)} />;
+	return (
+		<Link
+			{...props}
+			{...(isActive && { "aria-current": "page" })}
+			className={twMerge(props.className, isActive && activeClassName)}
+		/>
+	);
 }

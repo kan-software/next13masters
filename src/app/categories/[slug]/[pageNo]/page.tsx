@@ -3,6 +3,7 @@ import { ProductsPagination } from "@/ui/molecules/ProductsPagination";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 import { getProductsList } from "@/api/products";
 import { ProductsSection } from "@/ui/atoms/ProductsSection";
+import { PageHeading } from "@/ui/atoms/PageHeading";
 
 type CategoriesPageProps = { params: { pageNo: string; slug: string } };
 
@@ -17,9 +18,12 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
 	}
 
 	return (
-		<ProductsSection>
-			<ProductsList products={products} />
-			<ProductsPagination url={`/categories/${params.slug}`} numberOfPages={numberOfPages} />
-		</ProductsSection>
+		<>
+			<PageHeading>{products[0].categories[0].name}</PageHeading>
+			<ProductsSection>
+				<ProductsList products={products} />
+				<ProductsPagination url={`/categories/${params.slug}`} numberOfPages={numberOfPages} />
+			</ProductsSection>
+		</>
 	);
 }
