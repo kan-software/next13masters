@@ -10731,6 +10731,15 @@ export type ProductGetByIdQueryVariables = Exact<{
 
 export type ProductGetByIdQuery = { product?: { name: string, price: number, description: string, images: Array<{ url: string }> } | null };
 
+export type ProductGetBySearchQueryVariables = Exact<{
+  name_contains: Scalars['String']['input'];
+}>;
+
+
+export type ProductGetBySearchQuery = { products: Array<{ name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }> };
+
+export type ProductListItemFragment = { name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
+
 export type ProductGetListQueryVariables = Exact<{
   first?: Scalars['Int']['input'];
   skip?: Scalars['Int']['input'];
@@ -10739,8 +10748,6 @@ export type ProductGetListQueryVariables = Exact<{
 
 
 export type ProductGetListQuery = { products: Array<{ name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
-
-export type ProductListItemFragment = { name: string, price: number, id: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10817,6 +10824,23 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+export const ProductGetBySearchDocument = new TypedDocumentString(`
+    query ProductGetBySearch($name_contains: String!) {
+  products(where: {name_contains: $name_contains}) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  name
+  price
+  images {
+    url
+  }
+  categories {
+    name
+  }
+  id
+}`) as unknown as TypedDocumentString<ProductGetBySearchQuery, ProductGetBySearchQueryVariables>;
 export const ProductGetListDocument = new TypedDocumentString(`
     query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {
   products(first: $first, skip: $skip, where: $where) {

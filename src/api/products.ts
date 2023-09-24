@@ -4,6 +4,7 @@ import {
 	ProductGetListDocument,
 	type ProductWhereInput,
 	ProductGetByIdDocument,
+	ProductGetBySearchDocument,
 } from "@/gql/graphql";
 
 type GetProductsListOptions = {
@@ -15,6 +16,11 @@ type GetProductsListOptions = {
 export async function getProductById(id: string) {
 	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
 	return product;
+}
+
+export async function searchProducts(query: string) {
+	const { products } = await executeGraphql(ProductGetBySearchDocument, { name_contains: query });
+	return products;
 }
 
 export async function getProductsList({

@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from "react";
 import { ActiveLink, type ActiveLinkProps } from "../atoms/ActiveLink";
+import { SearchInput } from "../atoms/SearchInput";
 
 function NavbarItem({ children }: PropsWithChildren) {
 	return <li className="first:pl-4 last:pr-4 lg:px-0">{children}</li>;
@@ -32,6 +33,9 @@ export function Navbar({ children }: PropsWithChildren) {
 						<div className="hidden flex-shrink-0 items-center lg:flex" />
 						<ul className="flex h-16 max-w-full space-x-8 whitespace-nowrap lg:px-8">{children}</ul>
 					</nav>
+					<div className="flex h-full flex-1 items-center px-2 lg:ml-6 lg:h-16 lg:justify-end">
+						<SearchInput />
+					</div>
 				</div>
 			</div>
 		</header>
