@@ -10727,6 +10727,7 @@ export type ProductGetByIdQuery = { product?: { name: string, price: number, des
 export type ProductGetListQueryVariables = Exact<{
   first?: Scalars['Int']['input'];
   skip?: Scalars['Int']['input'];
+  where?: InputMaybe<ProductWhereInput>;
 }>;
 
 
@@ -10786,11 +10787,11 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductGetListDocument = new TypedDocumentString(`
-    query ProductGetList($first: Int! = 4, $skip: Int! = 0) {
-  products(first: $first, skip: $skip) {
+    query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {
+  products(first: $first, skip: $skip, where: $where) {
     ...ProductListItem
   }
-  productsConnection {
+  productsConnection(where: $where) {
     aggregate {
       count
     }

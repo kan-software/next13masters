@@ -5,11 +5,15 @@ function NavbarItem({ children }: PropsWithChildren) {
 	return <li className="first:pl-4 last:pr-4 lg:px-0">{children}</li>;
 }
 
-export type NavbarActiveLinkProps = PropsWithChildren<{ href: ActiveLinkProps["href"] }>;
+export type NavbarActiveLinkProps = PropsWithChildren<{
+	href: ActiveLinkProps["href"];
+	exact?: boolean;
+}>;
 
-function NavbarActiveLink({ children, href }: NavbarActiveLinkProps) {
+function NavbarActiveLink({ children, href, exact = false }: NavbarActiveLinkProps) {
 	return (
 		<ActiveLink
+			exact={exact}
 			className="flex h-full w-full min-w-[3rem] items-center justify-center border-b-2 border-transparent px-1 pt-1 text-center text-sm font-medium text-slate-500 hover:border-gray-300 hover:text-slate-700"
 			activeClassName="border-blue-500"
 			href={href}

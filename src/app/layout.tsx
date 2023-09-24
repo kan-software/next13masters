@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import { Inter } from "next/font/google";
 
 import { Navbar } from "@/ui/organisms/Navbar";
@@ -17,10 +17,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<body className={inter.className}>
 				<Navbar>
 					<Navbar.Item>
-						<Navbar.ActiveLink href="/">Home</Navbar.ActiveLink>
+						<Navbar.ActiveLink exact href="/">
+							Home
+						</Navbar.ActiveLink>
 					</Navbar.Item>
 					<Navbar.Item>
 						<Navbar.ActiveLink href="/products">All</Navbar.ActiveLink>
+					</Navbar.Item>
+					<Navbar.Item>
+						<Navbar.ActiveLink href={"/categories/t-shirts" as Route}>T-shirts</Navbar.ActiveLink>
+					</Navbar.Item>
+					<Navbar.Item>
+						<Navbar.ActiveLink href={"/categories/hoodies" as Route}>Hoodies</Navbar.ActiveLink>
+					</Navbar.Item>
+					<Navbar.Item>
+						<Navbar.ActiveLink href={"/categories/accessories" as Route}>
+							Accessories
+						</Navbar.ActiveLink>
 					</Navbar.Item>
 				</Navbar>
 				<div className="flex flex-grow flex-col">{children}</div>

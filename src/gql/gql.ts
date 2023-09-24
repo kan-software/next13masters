@@ -15,7 +15,7 @@ import * as types from './graphql';
  */
 const documents = {
     "fragment ProductDetail on Product {\n  name\n  price\n  description\n  images {\n    url\n  }\n}\n\nquery ProductGetById($id: ID = \"\") {\n  product(where: {id: $id}) {\n    ...ProductDetail\n  }\n}": types.ProductDetailFragmentDoc,
-    "query ProductGetList($first: Int! = 4, $skip: Int! = 0) {\n  products(first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}\n\nfragment ProductListItem on Product {\n  name\n  price\n  images {\n    url\n  }\n  categories {\n    name\n  }\n  id\n}": types.ProductGetListDocument,
+    "query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {\n  products(first: $first, skip: $skip, where: $where) {\n    ...ProductListItem\n  }\n  productsConnection(where: $where) {\n    aggregate {\n      count\n    }\n  }\n}\n\nfragment ProductListItem on Product {\n  name\n  price\n  images {\n    url\n  }\n  categories {\n    name\n  }\n  id\n}": types.ProductGetListDocument,
 };
 
 /**
@@ -25,7 +25,7 @@ export function graphql(source: "fragment ProductDetail on Product {\n  name\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetList($first: Int! = 4, $skip: Int! = 0) {\n  products(first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}\n\nfragment ProductListItem on Product {\n  name\n  price\n  images {\n    url\n  }\n  categories {\n    name\n  }\n  id\n}"): typeof import('./graphql').ProductGetListDocument;
+export function graphql(source: "query ProductGetList($first: Int! = 4, $skip: Int! = 0, $where: ProductWhereInput = {}) {\n  products(first: $first, skip: $skip, where: $where) {\n    ...ProductListItem\n  }\n  productsConnection(where: $where) {\n    aggregate {\n      count\n    }\n  }\n}\n\nfragment ProductListItem on Product {\n  name\n  price\n  images {\n    url\n  }\n  categories {\n    name\n  }\n  id\n}"): typeof import('./graphql').ProductGetListDocument;
 
 
 export function graphql(source: string) {
