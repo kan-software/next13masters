@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ProductsPagination } from "@/ui/molecules/ProductsPagination";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 import { getProductsList } from "@/api/products";
+import { ProductsSection } from "@/ui/atoms/ProductsSection";
 
 type CategoriesPageProps = { params: { pageNo: string; slug: string } };
 
@@ -16,9 +17,9 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
 	}
 
 	return (
-		<section className="sm:py-18 mx-auto flex w-full max-w-2xl flex-grow flex-col px-8 py-12 sm:px-6 lg:max-w-7xl">
+		<ProductsSection>
 			<ProductsList products={products} />
 			<ProductsPagination url={`/categories/${params.slug}`} numberOfPages={numberOfPages} />
-		</section>
+		</ProductsSection>
 	);
 }
