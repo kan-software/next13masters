@@ -19,7 +19,9 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
 
 	return (
 		<>
-			<PageHeading>{products[0].categories[0].name}</PageHeading>
+			<PageHeading>
+				<h2>{products[0].categories[0].name}</h2>
+			</PageHeading>
 			<ProductsSection>
 				<ProductsList products={products} />
 				<ProductsPagination url={`/categories/${params.slug}`} numberOfPages={numberOfPages} />
