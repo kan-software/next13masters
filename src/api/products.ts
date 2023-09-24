@@ -1,11 +1,21 @@
 import { executeGraphql } from "./client";
-import { type InputMaybe, ProductGetListDocument, type ProductWhereInput } from "@/gql/graphql";
+import {
+	type InputMaybe,
+	ProductGetListDocument,
+	type ProductWhereInput,
+	ProductGetByIdDocument,
+} from "@/gql/graphql";
 
 type GetProductsListOptions = {
 	pageNo: number;
 	pageSize?: number;
 	where?: InputMaybe<ProductWhereInput>;
 };
+
+export async function getProductById(id: string) {
+	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
+	return product;
+}
 
 export async function getProductsList({
 	pageSize = 4,
