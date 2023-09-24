@@ -22,7 +22,9 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
 
 	return (
 		<>
-			<PageHeading>All products</PageHeading>
+			<PageHeading>
+				<h2>All products</h2>
+			</PageHeading>
 			<ProductsSection>
 				<ProductsList products={products} />
 				<ProductsPagination url="/products" numberOfPages={numberOfPages} />

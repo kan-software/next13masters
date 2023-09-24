@@ -1,8 +1,21 @@
 import { notFound } from "next/navigation";
+import { type Metadata } from "next";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 import { getProductsListByCollection } from "@/api/products";
 import { ProductsSection } from "@/ui/atoms/ProductsSection";
 import { PageHeading } from "@/ui/atoms/PageHeading";
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { slug: string };
+}): Promise<Metadata> => {
+	const products = await getProductsListByCollection(params.slug);
+	const collection = products[0]?.collections?.[0];
+	return {
+		title: collection ? collection.name : "Collection not found",
+	};
+};
 
 export default async function CollectionsPage({ params }: { params: { slug: string } }) {
 	const products = await getProductsListByCollection(params.slug);
