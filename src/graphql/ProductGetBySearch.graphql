@@ -3,15 +3,3 @@ query ProductGetBySearch($name_contains: String!) {
 		...ProductListItem
 	}
 }
-
-fragment ProductListItem on Product {
-	name
-	price
-	images {
-		url
-	}
-	categories {
-		name
-	}
-	id
-}

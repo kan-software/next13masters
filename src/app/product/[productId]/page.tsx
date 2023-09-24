@@ -12,6 +12,7 @@ export const generateMetadata = async ({ params }: ProductPageProps): Promise<Me
 	const product = await getProductById(params.productId);
 	return {
 		title: product ? product.name : "Product not found",
+		description: product ? product.description : "Product not found",
 	};
 };
 

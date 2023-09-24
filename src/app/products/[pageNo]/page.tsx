@@ -3,6 +3,7 @@ import { ProductsPagination } from "@/ui/molecules/ProductsPagination";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 import { getProductsList } from "@/api/products";
 import { ProductsSection } from "@/ui/atoms/ProductsSection";
+import { PageHeading } from "@/ui/atoms/PageHeading";
 
 export async function generateStaticParams() {
 	const numberOfPages = 4;
@@ -20,9 +21,12 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
 	}
 
 	return (
-		<ProductsSection>
-			<ProductsList products={products} />
-			<ProductsPagination url="/products" numberOfPages={numberOfPages} />
-		</ProductsSection>
+		<>
+			<PageHeading>All products</PageHeading>
+			<ProductsSection>
+				<ProductsList products={products} />
+				<ProductsPagination url="/products" numberOfPages={numberOfPages} />
+			</ProductsSection>
+		</>
 	);
 }
