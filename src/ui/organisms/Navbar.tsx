@@ -1,6 +1,7 @@
 import { type PropsWithChildren } from "react";
 import { ActiveLink, type ActiveLinkProps } from "../atoms/ActiveLink";
 import { SearchInput } from "../atoms/SearchInput";
+import { CartNavbarLink } from "../atoms/CartNavbarLink";
 
 function NavbarItem({ children }: PropsWithChildren) {
 	return <li className="first:pl-4 last:pr-4 lg:px-0">{children}</li>;
@@ -35,6 +36,9 @@ export function Navbar({ children }: PropsWithChildren) {
 					</nav>
 					<div className="flex h-full flex-1 items-center px-2 lg:ml-6 lg:h-16 lg:justify-end">
 						<SearchInput />
+						<div className="ml-auto h-full lg:ml-4">
+							<CartNavbarLink />
+						</div>
 					</div>
 				</div>
 			</div>

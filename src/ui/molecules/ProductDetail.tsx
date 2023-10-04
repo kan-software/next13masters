@@ -1,5 +1,6 @@
 import { ProductItemImage } from "../atoms/ProductItemImage";
 import { ProductDetailDescription } from "../atoms/ProductDetailDescription";
+import { AddToCardButton } from "../atoms/AddToCartButton";
 import { type ProductDetailFragment } from "@/gql/graphql";
 
 export type ProductDetailProps = {
@@ -15,6 +16,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
 				<ProductItemImage src={image.url} alt={product.name} />
 				<div className="px-6">
 					<ProductDetailDescription product={product} />
+					<div className="mt-8">
+						<AddToCardButton />
+					</div>
 				</div>
 			</div>
 		</article>
