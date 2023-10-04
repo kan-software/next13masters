@@ -1,4 +1,4 @@
-fragment ProductListItem on Product {
+fragment ProductsListItem on Product {
 	name
 	price
 	images {

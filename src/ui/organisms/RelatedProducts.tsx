@@ -1,7 +1,7 @@
 import { ProductsList } from "./ProductsList";
-import { type ProductListItemFragment } from "@/gql/graphql";
+import { type ProductsListItemFragment } from "@/gql/graphql";
 
-export function RelatedProducts({ products }: { products: ProductListItemFragment[] }) {
+export function RelatedProducts({ products }: { products: ProductsListItemFragment[] }) {
 	return (
 		<aside data-testid="related-products">
 			<div className="py-16">

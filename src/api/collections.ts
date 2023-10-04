@@ -1,7 +1,7 @@
 import { executeGraphql } from "./client";
-import { CollectionGetListDocument } from "@/gql/graphql";
+import { CollectionsGetListDocument } from "@/gql/graphql";
 
 export async function getCollectionsList() {
-	const { collections } = await executeGraphql(CollectionGetListDocument);
+	const { collections } = await executeGraphql(CollectionsGetListDocument);
 	return collections;
 }

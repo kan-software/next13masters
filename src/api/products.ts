@@ -1,11 +1,11 @@
 import { executeGraphql } from "./client";
 import {
 	type InputMaybe,
-	ProductGetListDocument,
+	ProductsGetListDocument,
 	type ProductWhereInput,
 	ProductGetByIdDocument,
-	ProductGetBySearchDocument,
-	ProductGetByCollectionListDocument,
+	ProductsGetBySearchDocument,
+	ProductsGetByCollectionListDocument,
 } from "@/gql/graphql";
 
 type GetProductsListOptions = {
@@ -20,12 +20,12 @@ export async function getProductById(id: string) {
 }
 
 export async function searchProducts(query: string) {
-	const { products } = await executeGraphql(ProductGetBySearchDocument, { name_contains: query });
+	const { products } = await executeGraphql(ProductsGetBySearchDocument, { name_contains: query });
 	return products;
 }
 
 export async function getProductsListByCollection(collection: string) {
-	const { products } = await executeGraphql(ProductGetByCollectionListDocument, {
+	const { products } = await executeGraphql(ProductsGetByCollectionListDocument, {
 		slug: collection,
 	});
 	return products;
@@ -43,7 +43,7 @@ export async function getProductsList({
 		productsConnection: {
 			aggregate: { count },
 		},
-	} = await executeGraphql(ProductGetListDocument, {
+	} = await executeGraphql(ProductsGetListDocument, {
 		first: pageSize,
 		skip: offset,
 		where,

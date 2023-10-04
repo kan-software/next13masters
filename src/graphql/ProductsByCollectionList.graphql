@@ -1,0 +1,13 @@
+query ProductsGetByCollectionList($slug: String! = "new-arrivals") {
+	products(where: { collections_every: { slug: $slug } }) {
+		...ProductsByCollectionItem
+	}
+}
+
+fragment ProductsByCollectionItem on Product {
+	...ProductsListItem
+	collections {
+		name
+		description
+	}
+}
