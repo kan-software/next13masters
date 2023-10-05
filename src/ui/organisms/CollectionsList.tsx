@@ -1,7 +1,7 @@
 import { CollectionItem } from "../molecules/CollectionItem";
-import { type CollectionItemFragment } from "@/gql/graphql";
+import { type CollectionsItemFragment } from "@/gql/graphql";
 
-export function CollectionsList({ collections }: { collections: CollectionItemFragment[] }) {
+export function CollectionsList({ collections }: { collections: CollectionsItemFragment[] }) {
 	return (
 		<div className="bg-gray-100">
 			<div className="mx-auto max-w-7xl px-8">
