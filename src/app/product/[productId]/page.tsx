@@ -26,7 +26,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
 	return (
 		<section className="mx-auto grid max-w-7xl p-8">
-			<ProductDetail product={product} />
+			<ProductDetail product={product} productId={params.productId} />
 			<RelatedProducts products={relatedProducts} />
 		</section>
 	);
