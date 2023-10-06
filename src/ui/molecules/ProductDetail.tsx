@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { ProductItemImage } from "../atoms/ProductItemImage";
 import { ProductDetailDescription } from "../atoms/ProductDetailDescription";
 import { AddToCardButton } from "../atoms/AddToCartButton";
@@ -16,6 +17,7 @@ export function ProductDetail({ product, productId }: ProductDetailProps) {
 		"use server";
 		const cart = await getOrCreateCart();
 		await addProductToCart(cart.id, productId);
+		revalidateTag("cart");
 	}
 
 	return (

@@ -12,15 +12,18 @@ import {
 export async function getOrCreateCart() {
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
-		const { order: cart } = await executeGraphql(CartGetByIdDocument, {
-			id: cartId,
+		const { order: cart } = await executeGraphql({
+			query: CartGetByIdDocument,
+			variables: {
+				id: cartId,
+			},
 		});
 		if (cart) {
 			return cart;
 		}
 	}
 
-	const { createOrder: newCart } = await executeGraphql(CartCreateDocument);
+	const { createOrder: newCart } = await executeGraphql({ query: CartCreateDocument });
 	if (!newCart) {
 		throw new Error("Failed to create cart");
 	}
@@ -30,27 +33,36 @@ export async function getOrCreateCart() {
 }
 
 export async function addProductToCart(cartId: string, productId: string) {
-	const { product } = await executeGraphql(ProductGetByIdDocument, {
-		id: productId,
+	const { product } = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: {
+			id: productId,
+		},
 	});
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);
 	}
 
-	await executeGraphql(CartAddItemDocument, {
-		cartId,
-		productId,
-		total: product.price,
+	await executeGraphql({
+		query: CartAddItemDocument,
+		variables: {
+			cartId,
+			productId,
+			total: product.price,
+		},
 	});
 }
 
 export async function changeItemQuantity(itemId: string, quantity: number) {
-	await executeGraphql(CartChangeItemQuantityDocument, {
-		itemId,
-		quantity,
+	await executeGraphql({
+		query: CartChangeItemQuantityDocument,
+		variables: {
+			itemId,
+			quantity,
+		},
 	});
 }
 
 export async function removeItem(itemId: string) {
-	await executeGraphql(CartRemoveItemDocument, { itemId });
+	await executeGraphql({ query: CartRemoveItemDocument, variables: { itemId } });
 }

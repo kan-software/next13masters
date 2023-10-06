@@ -1,7 +1,7 @@
 "use client";
 
 import { experimental_useOptimistic as useOptimistic } from "react";
-import { changeItemQuantity, removeItem } from "@/server-actions";
+import { changeItemQuantityAction, removeItemAction } from "@/server-actions";
 
 export function ShoppingListItemActions({
 	itemId,
@@ -17,7 +17,7 @@ export function ShoppingListItemActions({
 
 	const updateQuantity = async (newQuantity: number) => {
 		setOptimisticQuantity(newQuantity);
-		await changeItemQuantity(itemId, newQuantity);
+		await changeItemQuantityAction(itemId, newQuantity);
 	};
 
 	return (
@@ -50,7 +50,7 @@ export function ShoppingListItemActions({
 			<button
 				className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:ml-0 sm:mt-3"
 				formAction={async () => {
-					await removeItem(itemId);
+					await removeItemAction(itemId);
 				}}
 			>
 				<span>Remove</span>

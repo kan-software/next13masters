@@ -15,18 +15,24 @@ type GetProductsListOptions = {
 };
 
 export async function getProductById(id: string) {
-	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
+	const { product } = await executeGraphql({ query: ProductGetByIdDocument, variables: { id } });
 	return product;
 }
 
 export async function searchProducts(query: string) {
-	const { products } = await executeGraphql(ProductsGetBySearchDocument, { name_contains: query });
+	const { products } = await executeGraphql({
+		query: ProductsGetBySearchDocument,
+		variables: { name_contains: query },
+	});
 	return products;
 }
 
 export async function getProductsListByCollection(collection: string) {
-	const { products } = await executeGraphql(ProductsGetByCollectionListDocument, {
-		slug: collection,
+	const { products } = await executeGraphql({
+		query: ProductsGetByCollectionListDocument,
+		variables: {
+			slug: collection,
+		},
 	});
 	return products;
 }
@@ -43,10 +49,13 @@ export async function getProductsList({
 		productsConnection: {
 			aggregate: { count },
 		},
-	} = await executeGraphql(ProductsGetListDocument, {
-		first: pageSize,
-		skip: offset,
-		where,
+	} = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: {
+			first: pageSize,
+			skip: offset,
+			where,
+		},
 	});
 
 	return {
