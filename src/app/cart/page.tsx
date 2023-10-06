@@ -1,25 +1,12 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { executeGraphql } from "@/api/client";
-import { CartGetByIdDocument } from "@/gql/graphql";
 import { ShoppingList } from "@/ui/organisms/ShoppingList";
 import { OrderSummary } from "@/ui/atoms/OrderSummary";
 import { CheckoutButton } from "@/ui/atoms/CheckoutButton";
+import { getCart } from "@/api/cart";
 
 export default async function CartPage() {
-	const cartId = cookies().get("cartId")?.value;
-
-	if (!cartId) {
-		redirect("/");
-	}
-
-	const { order: cart } = await executeGraphql({
-		query: CartGetByIdDocument,
-		variables: {
-			id: cartId,
-		},
-	});
+	const cart = await getCart();
 
 	if (!cart) {
 		redirect("/");

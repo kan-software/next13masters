@@ -17,6 +17,9 @@ export async function getCart() {
 			variables: {
 				id: cartId,
 			},
+			next: {
+				tags: ["cart"],
+			},
 		});
 		if (cart) {
 			return cart;
@@ -33,7 +36,12 @@ export async function getOrCreateCart() {
 		return cart;
 	}
 
-	const { createOrder: newCart } = await executeGraphql({ query: CartCreateDocument });
+	const { createOrder: newCart } = await executeGraphql({
+		query: CartCreateDocument,
+		next: {
+			tags: ["cart"],
+		},
+	});
 	if (!newCart) {
 		throw new Error("Failed to create cart");
 	}
@@ -48,6 +56,9 @@ export async function addProductToCart(cartId: string, productId: string) {
 		variables: {
 			id: productId,
 		},
+		next: {
+			tags: ["cart"],
+		},
 	});
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);
@@ -60,6 +71,9 @@ export async function addProductToCart(cartId: string, productId: string) {
 			productId,
 			total: product.price,
 		},
+		next: {
+			tags: ["cart"],
+		},
 	});
 }
 
@@ -70,9 +84,18 @@ export async function changeItemQuantity(itemId: string, quantity: number) {
 			itemId,
 			quantity,
 		},
+		next: {
+			tags: ["cart"],
+		},
 	});
 }
 
 export async function removeItem(itemId: string) {
-	await executeGraphql({ query: CartRemoveItemDocument, variables: { itemId } });
+	await executeGraphql({
+		query: CartRemoveItemDocument,
+		variables: { itemId },
+		next: {
+			tags: ["cart"],
+		},
+	});
 }
