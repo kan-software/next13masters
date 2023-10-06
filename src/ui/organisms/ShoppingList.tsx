@@ -10,7 +10,8 @@ export function ShoppingList({ cart }: { cart: CartGetByIdQuery["order"] }) {
 					(item) =>
 						item.product && (
 							<ShoppingListItem
-								key={item.product.id}
+								key={item.id}
+								itemId={item.id}
 								product={item.product}
 								quantity={item.quantity}
 							/>

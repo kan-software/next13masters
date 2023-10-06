@@ -2,8 +2,10 @@ import { cookies } from "next/headers";
 import { executeGraphql } from "./client";
 import {
 	CartAddItemDocument,
+	CartChangeItemQuantityDocument,
 	CartCreateDocument,
 	CartGetByIdDocument,
+	CartRemoveItemDocument,
 	ProductGetByIdDocument,
 } from "@/gql/graphql";
 
@@ -40,4 +42,15 @@ export async function addProductToCart(cartId: string, productId: string) {
 		productId,
 		total: product.price,
 	});
+}
+
+export async function changeItemQuantity(itemId: string, quantity: number) {
+	await executeGraphql(CartChangeItemQuantityDocument, {
+		itemId,
+		quantity,
+	});
+}
+
+export async function removeItem(itemId: string) {
+	await executeGraphql(CartRemoveItemDocument, { itemId });
 }

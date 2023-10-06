@@ -4,9 +4,11 @@ import { ShoppingListItemActions } from "../atoms/ShoppingListItemActions";
 import { type ProductsListItemFragment } from "@/gql/graphql";
 
 export function ShoppingListItem({
+	itemId,
 	product,
 	quantity,
 }: {
+	itemId: string;
 	product: ProductsListItemFragment;
 	quantity: number;
 }) {
@@ -16,7 +18,7 @@ export function ShoppingListItem({
 			<div className="relative ml-4 flex flex-1 flex-col justify-between">
 				<ShoppingListItemDescription product={product} />
 				<div className="mt-4">
-					<ShoppingListItemActions quantity={quantity} />
+					<ShoppingListItemActions itemId={itemId} quantity={quantity} />
 				</div>
 			</div>
 		</li>
