@@ -1,8 +1,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { executeGraphql } from "@/api/client";
 import { CartGetByIdDocument } from "@/gql/graphql";
-import { formatPrice } from "@/utils";
+import { ShoppingList } from "@/ui/organisms/ShoppingList";
+import { OrderSummary } from "@/ui/atoms/OrderSummary";
+import { CheckoutButton } from "@/ui/atoms/CheckoutButton";
 
 export default async function CartPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -21,35 +24,25 @@ export default async function CartPage() {
 
 	return (
 		<section className="mx-auto w-full max-w-7xl p-8">
-			<div>
-				<h1 className="text-3xl font-bold tracking-tight text-slate-900">Your Shopping Cart</h1>
-			</div>
-			<div>
-				<h1>Order #{cart.id} summary</h1>
-				<table>
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Quantity</th>
-							<th>Price</th>
-						</tr>
-					</thead>
-					<tbody>
-						{cart.orderItems.map((item) => {
-							if (!item.product) {
-								return null;
-							}
-							return (
-								<tr key={item.product.id}>
-									<td>{item.product.name}</td>
-									<td>{item.quantity}</td>
-									<td>{formatPrice(item.product.price)}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			</div>
+			<h1 className="text-3xl font-bold tracking-tight text-slate-900">Your Shopping Cart</h1>
+			<form className="mt-12">
+				<ShoppingList cart={cart} />
+				<div className="mt-8">
+					<OrderSummary cart={cart} />
+					<div className="mt-10 grid grid-cols-2">
+						<div></div>
+						<CheckoutButton />
+					</div>
+					<div className="mt-4 text-center">
+						<Link
+							href="/products"
+							className="text-sm font-medium text-blue-600 hover:text-blue-500"
+						>
+							Continue Shopping
+						</Link>
+					</div>
+				</div>
+			</form>
 		</section>
 	);
 }
