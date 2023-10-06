@@ -9,7 +9,7 @@ import {
 	ProductGetByIdDocument,
 } from "@/gql/graphql";
 
-export async function getOrCreateCart() {
+export async function getCart() {
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
 		const { order: cart } = await executeGraphql({
@@ -21,6 +21,16 @@ export async function getOrCreateCart() {
 		if (cart) {
 			return cart;
 		}
+	}
+
+	return null;
+}
+
+export async function getOrCreateCart() {
+	const cart = await getCart();
+
+	if (cart) {
+		return cart;
 	}
 
 	const { createOrder: newCart } = await executeGraphql({ query: CartCreateDocument });
