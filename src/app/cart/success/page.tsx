@@ -1,6 +1,5 @@
 import Stripe from "stripe";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { PageHeading } from "@/ui/atoms/PageHeading";
 
 export default async function CartSuccess({
@@ -18,8 +17,6 @@ export default async function CartSuccess({
 	});
 
 	const stripeCheckoutSession = await stripe.checkout.sessions.retrieve(searchParams.session_id);
-
-	cookies().set("cartId", "");
 
 	return (
 		<PageHeading>

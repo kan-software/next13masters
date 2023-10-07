@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { changeItemQuantity, getCart, removeItem } from "@/api/cart";
 
 export async function changeItemQuantityAction(itemId: string, quantity: number) {
@@ -56,6 +57,7 @@ export async function handleStripePaymentAction() {
 	});
 
 	if (session.url) {
+		cookies().set("cartId", "");
 		redirect(session.url);
 	}
 }
