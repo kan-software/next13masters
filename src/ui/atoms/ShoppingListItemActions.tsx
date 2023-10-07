@@ -21,7 +21,7 @@ export function ShoppingListItemActions({
 	};
 
 	return (
-		<>
+		<form>
 			<div className="flex">
 				<button
 					type="submit"
@@ -55,6 +55,6 @@ export function ShoppingListItemActions({
 			>
 				<span>Remove</span>
 			</button>
-		</>
+		</form>
 	);
 }

@@ -15,7 +15,7 @@ export default async function CartPage() {
 	return (
 		<section className="mx-auto w-full max-w-7xl p-8">
 			<h1 className="text-3xl font-bold tracking-tight text-slate-900">Your Shopping Cart</h1>
-			<form className="mt-12">
+			<div className="mt-12">
 				<ShoppingList cart={cart} />
 				<div className="mt-8">
 					<OrderSummary cart={cart} />
@@ -32,7 +32,7 @@ export default async function CartPage() {
 						</Link>
 					</div>
 				</div>
-			</form>
+			</div>
 		</section>
 	);
 }
